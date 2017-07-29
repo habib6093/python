@@ -1,0 +1,272 @@
+..django-admin startproject project_name
+..python manage.py startapp app_name
+
+..python manage.py runserver
+
+..python manage.py makemigrations     /// make sure app is added in installed app in setting.py
+..python manage.py migrate            /// to add new non-nullable attribute set default value 
+                                      /// example: post_no = models.IntegerField(default=0)
+                                      
+                                                                           
+..heroku run python manage.py syncdb    /// change updates in heroku  
+..heroku run python manage.py migrate
+
+
+
+..python manage.py createsuperuser
+
+    
+    
+    
+    
+  
+  
+//////// in model.py to create model(database and attributes)///////////
+
+
+class post(models.Model):
+   post_name = models.CharField(max_length=10)
+   date = models.CharField(max_length=20)
+   post = models.TextField()
+
+   def __str__(self):
+      return self.post_name       #  in admin page to rename every new field/row in databse 
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+ ////////in admin.py to register model from model.py///////////
+ 
+ 
+ from .models import post   #from .models import model_class_name
+ 
+ 
+ admin.site.register(post)  #admin.site.register(model)
+ 
+      
+      
+      
+      
+      
+      
+
+
+
+
+//////// in view.py to return response ///////
+
+from django.http import HttpResponse
+ 
+def dekha(request):                        # dekha is a view function    
+    return HttpResponse('dekhsos hala')    # HttpResponse('desired string')
+
+
+
+      
+      
+      
+      
+      
+      
+ 
+
+/////////////// in view.py to return value to html file///////////////
+
+
+
+def home(request):                                              # home is a view function serve as the request
+    allpost = post.objects.all()                                # model_name.objects.all() return all object of model_name
+    return render(request, 'index.html', {'allpost':allpost})   # render(request,'file_name',dictionary)
+    
+    
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+////////////// in urls.py to routing /////////////
+
+from blog_post import views                  # from app_name import views
+
+url(r'^home/$', views.home, name='home')    # url(r'^page_name/', views.model_name, name=not_yet_found_info_you_can_put_anything)
+      
+# '$' dollar sign indicates that , routing will only possible if user enter /home/ . no extra character is allowed ,like: /home/ms
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+///////// sending parameter to view function ////////////
+ 
+ 
+ # in urls.py 
+ 
+ url(r'^dekha/(\d+)', views.dekha, name='dekha')
+ 
+ 
+ # in view.py
+ 
+ def dekha(request, articleId):                              # articleId is a parameter
+   text = "Displaying article Number : %s" %articleId        
+   return HttpResponse(text)
+ 
+# now ,if request in  " http://127.0.0.1:8000/dekha/24 " , it will show " Displaying article Number 24 "
+ 
+ 
+ 
+# for double parameter
+
+ url(r'^articles/(\d+)/(\d+)', 'view.dekha', name = 'dekha')
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+///////// To delete model attribute(delete data) from database///////////
+
+def delete_post(request, post_no):          # post_no is a position/primary key of data
+    post.objects.get(pk=post_no).delete()   # pk find the post and deleted it
+
+    return HttpResponse("deleted")          # after deletion a single message is showen
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+//////// to add bootstrap file /////////////////
+ 
+ 
+ # first create a directory int project folder
+ # add all css,js,fronts file
+ # in setting.py file find STATICFILES_DIRS
+ 
+ 
+ STATICFILES_DIRS = [
+   os.path.join(BASE_DIR, "static"),    # os.path.join(BASE_DIR, "directory_name")
+ ]
+ 
+ 
+ 
+
+    
+    
+    
+ 
+ 
+ 
+ 
+ 
+//////// to add css,js file with html file ////////////
+
+# at the first line of html file add
+
+{% load staticfiles %}
+
+
+# in head add this lines
+<head>
+{% load staticfiles %}
+   <link rel="stylesheet" href="{% static 'style.css' %}">
+   <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+   <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</head>
+
+      
+      
+      
+      
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+///////// django template language ////////////////////
+      
+      
+      
+{% for post in allpost %}                # for loop 
+  <h1 align="center"> {{ post }}</h1>   
+{%endfor%}                               # must have to end loop using this    
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+ ///useful links for django regx/////////////
+ https://simpleisbetterthancomplex.com/references/2016/10/10/url-patterns.html
+ 
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+

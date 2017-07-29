@@ -1,0 +1,41 @@
+///////////////  this is sample model class ////////////////////
+
+class post(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    
+ 
+ 
+////////// crerate ///////////
+ 
+    
+ obj=post(title="new post,description="new")          # creating new object/instance of model
+ obj.save()                                           # saving the object/instance
+
+
+ 
+
+post.objects.all()                                    # return all object/instance of model post
+
+
+
+
+post.objects.get(pk=post_no)                          # find a specific object/instance of model post by primary key 
+
+
+
+////////////// update /////////////////
+
+ob = post.objects.get(pk=post_no)                     # ob is initialized as a instance/object of specific primary key of model post 
+ob.title="this is new title"                          # title is an attribute of model post and this object's value has updated
+ob.description="this is new description"              # description is also another attribute and objects value has updated 
+ob.save()                                             # after changing the values . now object is changed
+
+
+//////////// delete ////////////////////
+
+post.objects.get(pk=post_no).delete()                 # delete an object/instance of model post
+
+
+post.objects.filter(pk=post_no).exists()              # return true or false whether object/instance of model post exist or not 
+                                           

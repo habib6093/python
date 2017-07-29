@@ -1,0 +1,10 @@
+ 
+ 
+ ////////// get local time ////////////////
+   
+   from datetime import datetime, timezone
+
+   utc_dt=datetime.now(timezone.utc)
+   time=utc_dt.astimezone()
+ 
+   print(time)
