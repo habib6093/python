@@ -16,8 +16,19 @@
 ..python manage.py createsuperuser
 
     
-    
-    
+   
+   
+   
+   
+   
+/////////////// in settings.py to add static directory ////////////////////
+
+  STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
+
+
+
     
   
   
