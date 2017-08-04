@@ -21,6 +21,16 @@
    
    
    
+   
+//////////////// in views.py to get current site address ////////////////////
+
+from django.contrib.sites.shortcuts import get_current_site
+
+print("current site is: ",get_current_site(request).domain)
+
+   
+   
+   
 /////////////// in settings.py to add static directory ////////////////////
 
   STATICFILES_DIRS = (
