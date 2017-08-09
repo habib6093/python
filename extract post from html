@@ -1,0 +1,15 @@
+final="<p>Hello there</p><img src="who gonna make this happend><p>have you done this</p> "
+start=1
+check=0
+
+for i in post_desc:
+     if i=='>':
+        start=0
+     elif i=='<':
+        start=1
+     elif start==0:
+        emp_md+=i
+
+     check+=1
+     
+print("final is: ",final)
