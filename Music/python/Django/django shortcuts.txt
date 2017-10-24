@@ -15,6 +15,7 @@
 
 ..python manage.py createsuperuser
 
+..sudo pip3 install djangorestframework   ///do use sudo if shows errors
     
    
    
